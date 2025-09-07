@@ -1,0 +1,49 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package model {
+class Usuario {
+- id : String
+- nombreCompleto : String
+- username : String
+- password : String
+- rol : Rol
+- historial : Accion[0..*]
+- bloqueado : boolean
+- intentosFallidos : int
+- creadoEn : long
+}
+
+
+class Accion {
+- descripcion : String
+- timestamp : long
+}
+
+
+enum Rol {
+ADMINISTRADOR
+ESTANDAR
+SUPERVISOR
+INVITADO
+}
+
+
+class UsuarioRepository
+class AuthService
+class UsuarioService
+class AuditoriaService
+class Autorizacion
+}
+
+
+Usuario "1" o-- "*" Accion : compone
+UsuarioRepository --> Usuario
+AuthService --> UsuarioRepository
+UsuarioService --> UsuarioRepository
+AuditoriaService --> UsuarioRepository
+Autorizacion --> Usuario
+
+
+@enduml
