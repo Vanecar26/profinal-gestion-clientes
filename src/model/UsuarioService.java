@@ -65,12 +65,18 @@ public class UsuarioService {
 
 
     public void desbloquear(Usuario actor, String idObjetivo) {
-        
+
         Autorizacion.requiereAdmin(actor);
         Usuario objetivo = repo.buscarPorId(idObjetivo);
             if (objetivo == null) throw new NoEncontradoException("No existe usuario con id: " + idObjetivo);
                 objetivo.setBloqueado(false);
                 actor.registrarAccion("Desbloqueó la cuenta de '" + objetivo.getUsername() + "'");
+    }
+
+    // Búsqueda por nombre parcial (requiere permisos: admin puede ver todos)
+    public Usuario[] buscarPorNombreParcial(Usuario actor, String parcial) {
+        Autorizacion.requiereAdmin(actor);
+        return repo.buscarPorNombreParcial(parcial);
     }
 }
     

@@ -72,5 +72,17 @@ public class UsuarioRepository {
 
     public Usuario[] buscarPorRol(Rol rol) {
     Usuario[] temp = new Usuario[usados];
+    int k = 0;
+    for (int i = 0; i < usados; i++) {
+        if (datos[i].getRol() == rol) temp[k++] = datos[i];
+    }
+    return recortar(temp, k);
+    }
+
+    // Helper: trim nulls from temporary arrays
+    private Usuario[] recortar(Usuario[] arr, int length) {
+        Usuario[] out = new Usuario[length];
+        for (int i = 0; i < length; i++) out[i] = arr[i];
+        return out;
     }
 }

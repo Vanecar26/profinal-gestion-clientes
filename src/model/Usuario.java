@@ -88,32 +88,33 @@ public class Usuario {
 
     /** Registrar una acción en el historial del propio usuario */
     public void registrarAccion(String descripcion) {
-    if (accionesUsadas >= MAX_ACCIONES) return; // simple: ignorar si se llena
-    historial[accionesUsadas++] = new Accion(descripcion, System.currentTimeMillis());
+
+        if (accionesUsadas >= MAX_ACCIONES) return; // simple: ignorar si se llena
+        historial[accionesUsadas++] = new Accion(descripcion, System.currentTimeMillis());
     }
 
 
     public Accion[] getHistorial() {
-    Accion[] copia = new Accion[accionesUsadas];
-    for (int i = 0; i < accionesUsadas; i++) copia[i] = historial[i];
-    return copia;
+        Accion[] copia = new Accion[accionesUsadas];
+            for (int i = 0; i < accionesUsadas; i++) copia[i] = historial[i];
+        return copia;
     }
 
 
     // Intentos fallidos (para bloqueo)
     public void registrarIntentoFallido() {
-    intentosFallidos++;
-    registrarAccion("Intento de inicio de sesión fallido (#" + intentosFallidos + ")");
-    if (intentosFallidos >= 3) {
-    bloqueado = true;
-    registrarAccion("Cuenta bloqueada por múltiples intentos fallidos");
-    }
+        intentosFallidos++;
+            registrarAccion("Intento de inicio de sesión fallido (#" + intentosFallidos + ")");
+            if (intentosFallidos >= 3) {
+                bloqueado = true;
+                    registrarAccion("Cuenta bloqueada por múltiples intentos fallidos");
+            }
     }
 
 
     public void registrarInicioExitoso() {
-    intentosFallidos = 0;
-    registrarAccion("Inició sesión");
+        intentosFallidos = 0;
+            registrarAccion("Inició sesión");
     }
 
 }
